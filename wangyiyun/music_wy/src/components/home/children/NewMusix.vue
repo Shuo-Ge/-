@@ -8,6 +8,7 @@
           v-for="(item, i) in newMusicList"
           :key="i"
           @mouseover="changeIndex(i)"
+          @click="getMusicDetail(item.id)"
         >
           <img :src="item.picUrl" alt="" />
           <div class="listName">
@@ -30,7 +31,9 @@ export default {
     return {
       newMusicList: {},
       artIsts: [],
-      selectindex: 0, //设置选中的索引
+      selectindex: 0, //设置选中的索引,
+      // 保存歌曲详细信息
+      MusicDetail: {},
     };
   },
   created() {
@@ -42,10 +45,23 @@ export default {
         `/personalized/newsong?limit=${count}`
       );
       this.newMusicList = res.result;
+
       console.log(this.newMusicList);
+    },
+    // 获取歌曲详细信息
+    async getMusicDetail(id) {
+      const { data: res } = await this.$http.get(`/song/detail?ids=${id}`);
+      this.MusicDetail = res;
+      this.$store.commit("setPlaylist", this.MusicDetail.songs);
+      this.$store.commit("setPlayIndex", 0);
+      console.log(res);
     },
     changeIndex(index) {
       this.selectindex = index;
+    },
+    play() {
+      // this.$store.commit("setPlaylist", this.newMusicList);
+      console.log(123);
     },
   },
 };

@@ -4,7 +4,9 @@
     <div class="MeList">
       <ul>
         <li v-for="(item, i) in getMeListImg" :key="i">
-          <img :src="item.sPicUrl" alt="" />
+          <router-link :to="{ path: '/musicmv', query: { id: item.id } }">
+            <img :src="item.sPicUrl" alt="" />
+          </router-link>
           <div class="name">{{ item.name }}</div>
           <i class="el-icon-video-play ico"></i>
         </li>
@@ -28,9 +30,9 @@ export default {
       const { data: res } = await this.$http.get(
         "/personalized/privatecontent"
       );
-
       this.getMeListImg = res.result;
-      // console.log(this.getMeListImg);
+
+      console.log(this.getMeListImg);
     },
   },
 };

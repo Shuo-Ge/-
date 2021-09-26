@@ -4,6 +4,8 @@ const Home = () => import('../components/home/Home.vue')
 const Find = () => import('../components/home/Find.vue')
 const ListView = () => import('../components/home/children/ListView.vue')
 const PlayMusicList = () => import('../components/home/playmusic/PlayMusicList.vue')
+const MusicMv = () => import('../components/home/musicmv/MusicMv.vue')
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,10 +23,13 @@ const routes = [
         component: Find
       }, {
         path: '/listview',
-        component: ListView,
-
+        component: ListView
       },
 
+      {
+        path: '/musicmv',
+        comments: MusicMv
+      }
     ]
   }, {
     path: '/playmusiclist',
@@ -33,6 +38,7 @@ const routes = [
 
 ]
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 export default router

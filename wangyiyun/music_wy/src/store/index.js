@@ -17,7 +17,9 @@ export default new Vuex.Store({
             },
             ar: [0]
         }],
+
         playCurrentIndex: 0,
+
 
     },
     mutations: {
@@ -26,10 +28,14 @@ export default new Vuex.Store({
         },
         setPlayIndex(state, value) {
             state.playCurrentIndex = value
+        },
+        setLyric(state, value) {
+            state.lyric = value
         }
 
     },
     actions: {
+
     },
     modules: {
     }

@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       banners: "",
+      playlist: [],
     };
   },
   created() {
@@ -25,7 +26,18 @@ export default {
     async getLunBoData(type = 0) {
       const { data: res } = await this.$http.get(`/banner?type=${type}`);
       this.banners = res.banners;
+      console.log(this.banners);
     },
+    play() {
+      this.$store.commit("setPlaylist", this.banners);
+    },
+    // 获取歌单列表
+    // async getMusiclist(id) {
+    //   const { data: res } = await this.$http.get(`/playlist/detail?id=${id}`);
+    //   this.playlist = res.playlist;
+    //   // this.$store.commit("setPlaylist", this.playlist.tracks);
+    //   console.log(this.playlist);
+    // },
   },
 };
 </script>

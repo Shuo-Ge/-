@@ -33,10 +33,11 @@ export default {
     this.getMusiclist(this.id);
   },
   methods: {
+    // 获取歌单列表
     async getMusiclist(id) {
       const { data: res } = await this.$http.get(`/playlist/detail?id=${id}`);
       this.playlist = res.playlist;
-      this.$store.commit("setPlaylist", this.playlist.tracks);
+      // this.$store.commit("setPlaylist", this.playlist.tracks);
       console.log(this.playlist);
     },
   },

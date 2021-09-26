@@ -2,7 +2,7 @@
   <div class="foot">
     <div class="left">
       <img
-        @click="playmusiclistClick"
+        @click="show = !show"
         :src="playlist[playCurrentIndex].al.picUrl"
         alt=""
       />
@@ -33,7 +33,13 @@
       ref="audio"
       :src="`https://music.163.com/song/media/outer/url?id=${playlist[playCurrentIndex].id}.mp3`"
     ></audio>
-    <!-- <PlayMusicList class="playMusicList"></PlayMusicList> -->
+    <PlayMusicList
+      @back="show = !show"
+      v-show="show"
+      :paused="paused"
+      :play="play"
+      class="playMusicList"
+    ></PlayMusicList>
   </div>
 </template>
 
@@ -45,6 +51,7 @@ export default {
     return {
       // 播放
       paused: true,
+      show: false,
     };
   },
   components: {
@@ -71,13 +78,6 @@ export default {
         this.paused = true;
       }
     },
-    playmusiclistClick() {
-      this.$router.push("/playmusiclist", {
-        params: {
-          id: this.$store.state.playlist[this.$store.state.playCurrentIndex].id,
-        },
-      });
-    },
   },
 };
 </script>
@@ -87,7 +87,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
+  height: 60px;
 }
 .left {
   display: flex;
@@ -130,5 +130,10 @@ export default {
 }
 .center-top li i {
   font-size: 20px;
+}
+.playMusicList {
+  /* position: fixed;
+  top: 0;
+  left: 0; */
 }
 </style>

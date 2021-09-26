@@ -1,11 +1,16 @@
 <template>
   <div class="body">
-    <div class="header">
+    <div class="header" @click="$emit('back')">
       <i class="el-icon-arrow-down down"></i>
     </div>
     <div class="main">
       <div class="left">
-        <img class="oneimg" src="@/assets/img/needle-ab.png" alt="" />
+        <img
+          class="oneimg"
+          :class="{ oneimg2: !paused }"
+          src="@/assets/img/needle-ab.png"
+          alt=""
+        />
         <img class="twoimg" src="@/assets/img/jiaopian.png" alt="" />
         <img
           class="threeimg"
@@ -23,7 +28,9 @@
         <div class="center-down">
           <div>
             <ul>
-              <li>{{ lyric.lrc.lyric }}</li>
+              <li v-for="(item, i) in lyric.lrc.lyric.split(/\s/gis)" :key="i">
+                {{ item }}
+              </li>
             </ul>
           </div>
         </div>
@@ -54,30 +61,68 @@
       </div>
       <el-button @click="add">加载更多</el-button>
     </div>
+    <!-- 控件 -->
+    <div class="centerContrall">
+      <div>
+        <ul class="center-top">
+          <li><i class="iconfont">&#xe6a2;</i></li>
+          <li><i class="iconfont">&#xe603;</i></li>
+          <li @click="play">
+            <i v-if="paused" class="iconfont">&#xe60c;</i>
+            <i v-else class="iconfont">&#xe606;</i>
+          </li>
+          <li><i class="iconfont">&#xe602;</i></li>
+          <li><i class="iconfont">&#xe727;</i></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
+import Footer from "@/components/home/Footer";
 export default {
+  props: ["paused", "play"],
   data() {
     return {
       // 获取所用评论用户信息
       comment: {},
       // 获取歌词
       lyric: {
-        lrc: {},
+        lrc: {
+          lyric: "",
+        },
       },
+      ric: "",
       show3: true,
     };
   },
+  components: {
+    Footer,
+  },
   created() {
+    // console.log(this.$router.params.id);
+  },
+  mounted() {
     this.getComment();
     this.getMusicLyric();
-    // console.log(this.$router.params.id);
   },
   computed: {
     ...mapState(["playlist", "playCurrentIndex"]),
+    lyricList() {
+      let arr = this.lyric.lrc.lyric.split(/\s/gis).map((item, i) => {
+        let min = item.slice(1, 3);
+        let sec = item.slice(4, 5);
+        let mill = item.slice(8, 11);
+        console.log(min, sec, mill);
+        return {
+          min,
+          sec,
+          mill,
+        };
+      });
+    },
   },
   methods: {
     async getComment() {
@@ -113,9 +158,9 @@ export default {
   width: 100%;
   height: 100%;
   background: linear-gradient(#d6ddde, #fff);
-  /* position: fixed;
+  position: fixed;
   top: 0;
-  left: 0; */
+  left: 0;
 }
 .down {
   font-size: 30px;
@@ -138,8 +183,23 @@ export default {
   height: 150px;
   z-index: 1;
   transform-origin: top left;
-  transform: rotate(320deg);
+  transform: rotate(-30deg);
+  z-index: 999;
+  transition: all 1s;
 }
+.oneimg2 {
+  position: absolute;
+  top: 0;
+  left: 130px;
+  width: 100px;
+  height: 150px;
+  z-index: 1;
+  transform-origin: top left;
+  transform: rotate(0deg);
+  z-index: 999;
+  transition: all 1s;
+}
+
 .twoimg {
   position: absolute;
   top: 50px;
@@ -216,5 +276,38 @@ export default {
 .footer {
   width: 960px;
   margin: 30px auto;
+  height: 370px;
+  overflow: auto;
+}
+.FooterMusic {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0px;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+.centerContrall {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  width: 100%;
+  height: 100px;
+  background: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 100px;
+}
+.centerContrall ul {
+  width: 300px;
+  margin: 0 auto;
+}
+.centerContrall ul li {
+  float: left;
+  margin-left: 40px;
+  line-height: 100px;
+}
+.center-top li i {
+  font-size: 20px;
 }
 </style>

@@ -98,6 +98,7 @@ export default {
 
   created() {},
   methods: {
+    // 获取评论
     async getComments() {
       const { data: res } = await this.$http.get(
         `/comment/playlist?id=${this.playlist.id}&limit=${this.playlist.commentCount}`
@@ -116,6 +117,7 @@ export default {
     plays(row) {
       var index = row.index;
       this.index = index;
+      this.$store.commit("setPlaylist", this.playlist.tracks);
       this.$store.commit("setPlayIndex", this.index);
     },
   },
