@@ -2,7 +2,7 @@
   <div class="foot">
     <div class="left">
       <img
-        @click="show = !show"
+        @click="(show = !show), getComment(), getMusicLyric()"
         :src="playlist[playCurrentIndex].al.picUrl"
         alt=""
       />
@@ -39,6 +39,8 @@
       :paused="paused"
       :play="play"
       class="playMusicList"
+      :comment="comment"
+      :lyric="lyric"
     ></PlayMusicList>
   </div>
 </template>
@@ -52,6 +54,14 @@ export default {
       // 播放
       paused: true,
       show: false,
+      // 获取所用评论用户信息
+      comment: {},
+      // 获取歌词
+      lyric: {
+        lrc: {
+          lyric: "",
+        },
+      },
     };
   },
   components: {
@@ -77,6 +87,25 @@ export default {
         this.$refs.audio.pause();
         this.paused = true;
       }
+    },
+    async getComment() {
+      const { data: res } = await this.$http.get(
+        `/comment/music?id=${
+          this.$store.state.playlist[this.$store.state.playCurrentIndex].id
+        }`
+      );
+      this.comment = res;
+      console.log(this.comment);
+    },
+    // 获取歌词
+    async getMusicLyric() {
+      const { data: res } = await this.$http.get(
+        `/lyric?id=${
+          this.$store.state.playlist[this.$store.state.playCurrentIndex].id
+        }`
+      );
+      this.lyric = res;
+      console.log(this.lyric);
     },
   },
 };

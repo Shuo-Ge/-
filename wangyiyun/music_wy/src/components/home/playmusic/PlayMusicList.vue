@@ -83,17 +83,11 @@
 import { mapState, mapMutations } from "vuex";
 import Footer from "@/components/home/Footer";
 export default {
-  props: ["paused", "play"],
+  props: ["paused", "play", "comment", "lyric"],
   data() {
     return {
       // 获取所用评论用户信息
-      comment: {},
-      // 获取歌词
-      lyric: {
-        lrc: {
-          lyric: "",
-        },
-      },
+
       ric: "",
       show3: true,
     };
@@ -105,8 +99,8 @@ export default {
     // console.log(this.$router.params.id);
   },
   mounted() {
-    this.getComment();
-    this.getMusicLyric();
+    // this.getComment();
+    // this.getMusicLyric();
   },
   computed: {
     ...mapState(["playlist", "playCurrentIndex"]),
