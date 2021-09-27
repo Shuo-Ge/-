@@ -88,41 +88,37 @@ export default {
     return {
       // 获取所用评论用户信息
 
-      ric: "",
+      // ric: "",
+
       show3: true,
     };
   },
   components: {
     Footer,
   },
-  created() {
-    // console.log(this.$router.params.id);
-  },
-  mounted() {
-    // this.getComment();
-    // this.getMusicLyric();
-  },
+  created() {},
+  mounted() {},
   computed: {
     ...mapState(["playlist", "playCurrentIndex"]),
-    lyricList() {
-      let arr = this.lyric.lrc.lyric.split(/\s/gis).map((item, i) => {
-        let min = item.slice(1, 3);
-        let sec = item.slice(4, 5);
-        let mill = item.slice(8, 11);
-        console.log(min, sec, mill);
-        return {
-          min,
-          sec,
-          mill,
-          lyric: item.slice(12, item.length),
-          content: item,
-          time:
-            parseInt(mill) + parseInt(sec) * 1000 + parseInt(min) * 60 * 1000,
-        };
-      });
-      console.log(arr);
-      return arr;
-    },
+    // lyricList() {
+    //   let arr = this.lyric.lrc.lyric.split(/\s/gis).map((item, i) => {
+    //     let min = item.slice(1, 3);
+    //     let sec = item.slice(4, 5);
+    //     let mill = item.slice(8, 11);
+    //     console.log(min, sec, mill);
+    //     return {
+    //       min,
+    //       sec,
+    //       mill,
+    //       lyric: item.slice(12, item.length),
+    //       content: item,
+    //       time:
+    //         parseInt(mill) + parseInt(sec) * 1000 + parseInt(min) * 60 * 1000,
+    //     };
+    //   });
+    //   console.log(arr);
+    //   return arr;
+    // },
   },
   methods: {
     async getComment() {
@@ -133,16 +129,6 @@ export default {
       );
       this.comment = res;
       console.log(this.comment);
-    },
-    // 获取歌词
-    async getMusicLyric() {
-      const { data: res } = await this.$http.get(
-        `/lyric?id=${
-          this.$store.state.playlist[this.$store.state.playCurrentIndex].id
-        }`
-      );
-      this.lyric = res;
-      console.log(this.lyric);
     },
     add() {
       this.i++;

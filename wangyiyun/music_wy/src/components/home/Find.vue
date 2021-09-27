@@ -63,8 +63,16 @@ export default {
     RankingList,
   },
   methods: {
-    selectIndex(index) {
+    async selectIndex(index) {
       this.selectindex = index;
+      // 获取歌单信息
+      const { data: res } = await this.$http.get(`/top/playlist`);
+      if (res.code == 200) {
+        this.$message.success("获取歌单成功");
+        this.MusicList = res.playlists;
+        console.log(this.MusicList);
+      }
+      // this.$message.error("获取歌单失败");
     },
   },
 };

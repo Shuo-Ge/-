@@ -44,7 +44,6 @@
     ></PlayMusicList>
   </div>
 </template>
-
 <script>
 import PlayMusicList from "@/components/home/playmusic/PlayMusicList";
 import { mapState, mapMutations } from "vuex";

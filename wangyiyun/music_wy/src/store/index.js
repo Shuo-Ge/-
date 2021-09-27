@@ -22,27 +22,27 @@ export default new Vuex.Store({
         lyric: ""
 
     },
-    getters: {
-        lyricList() {
-            let arr = this.lyric.lrc.lyric.split(/\s/gis).map((item, i) => {
-                let min = item.slice(1, 3);
-                let sec = item.slice(4, 5);
-                let mill = item.slice(8, 11);
-                console.log(min, sec, mill);
-                return {
-                    min,
-                    sec,
-                    mill,
-                    lyric: item.slice(12, item.length),
-                    content: item,
-                    time:
-                        parseInt(mill) + parseInt(sec) * 1000 + parseInt(min) * 60 * 1000,
-                };
-            });
-            console.log(arr);
-            return arr;
-        }
-    },
+    // getters: {
+    //     lyricList() {
+    //         let arr = this.lyric.lrc.lyric.split(/\s/gis).map((item, i) => {
+    //             let min = item.slice(1, 3);
+    //             let sec = item.slice(4, 5);
+    //             let mill = item.slice(8, 11);
+    //             console.log(min, sec, mill);
+    //             return {
+    //                 min,
+    //                 sec,
+    //                 mill,
+    //                 lyric: item.slice(12, item.length),
+    //                 content: item,
+    //                 time:
+    //                     parseInt(mill) + parseInt(sec) * 1000 + parseInt(min) * 60 * 1000,
+    //             };
+    //         });
+    //         console.log(arr);
+    //         return arr;
+    //     }
+    // },
     mutations: {
         setPlaylist(state, value) {
             state.playlist = value
@@ -50,9 +50,9 @@ export default new Vuex.Store({
         setPlayIndex(state, value) {
             state.playCurrentIndex = value
         },
-        setLyric(state, value) {
-            state.lyric = value
-        }
+        // setLyric(state, value) {
+        //     state.lyric = value
+        // }
 
     },
     actions: {
