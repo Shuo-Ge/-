@@ -3,49 +3,69 @@
     <!-- 头部导航 -->
     <el-menu
       mode="horizontal"
-      default-active="1"
+      :default-active="activeIndex"
       active-text-color="#EC4141"
       text-color="#373737"
     >
-      <el-menu-item index="1">个性推荐</el-menu-item>
-      <el-menu-item index="2">专属定制</el-menu-item>
-      <el-menu-item index="3">歌单</el-menu-item>
-      <el-menu-item index="4">排行榜</el-menu-item>
-      <el-menu-item index="5">歌手</el-menu-item>
-      <el-menu-item index="6">最新音乐</el-menu-item>
+      <el-menu-item index="recommend" @click="selectIndex('recommend')"
+        >个性推荐</el-menu-item
+      >
+      <el-menu-item index="customization" @click="selectIndex('customization')"
+        >专属定制</el-menu-item
+      >
+      <el-menu-item index="musiclist" @click="selectIndex('musiclist')"
+        >歌单</el-menu-item
+      >
+      <el-menu-item index="rankinglist" @click="selectIndex('rankinglist')"
+        >排行榜</el-menu-item
+      >
+      <el-menu-item index="singer" @click="selectIndex('singer')"
+        >歌手</el-menu-item
+      >
+      <el-menu-item index="newmusic" @click="selectIndex('newmusic')"
+        >最新音乐</el-menu-item
+      >
     </el-menu>
     <div class="auto">
       <div class="w">
-        <!-- 轮播图 -->
-        <Swiper></Swiper>
-        <!-- 推荐歌单 -->
-        <MusicList class="musiclist"></MusicList>
-        <!-- 独家放送 -->
-        <MeSend></MeSend>
-        <!-- 最新音乐 -->
-        <NewMusic></NewMusic>
+        <!-- 个性推荐 -->
+        <Recommend v-if="selectindex == 'recommend'"></Recommend>
+        <!-- 专属定制 -->
+        <Customization v-if="selectindex == 'customization'"></Customization>
+        <!-- 歌单 -->
+        <MusicList v-if="selectindex == 'musiclist'"></MusicList>
+        <!-- 排行榜 -->
+        <RankingList></RankingList>
       </div>
     </div>
   </div>
 </template>
 <script>
-// 导入轮播图插件
-import Swiper from "./children/Swiper.vue";
-// 导入推荐歌单
-import MusicList from "./children/MusilcList.vue";
-// 导入独家放送
-import MeSend from "./children/MeSend.vue";
-// 导入最新音乐
-import NewMusic from "./children/NewMusix.vue";
+// 个性推荐
+import Recommend from "@/components/home/homenav/Recommend";
+// 专属定制
+import Customization from "@/components/home/homenav/Customization";
+// 歌单
+import MusicList from "@/components/home/homenav/MusicList";
+// 排行榜
+import RankingList from "@/components/home/homenav/RankingList";
 export default {
+  data() {
+    return {
+      selectindex: "recommend",
+      activeIndex: "recommend",
+    };
+  },
   components: {
-    Swiper,
+    Recommend,
+    Customization,
     MusicList,
-    MeSend,
-    NewMusic,
+    RankingList,
   },
   methods: {
-    selectColor() {},
+    selectIndex(index) {
+      this.selectindex = index;
+    },
   },
 };
 </script>

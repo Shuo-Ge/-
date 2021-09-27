@@ -114,8 +114,14 @@ export default {
           min,
           sec,
           mill,
+          lyric: item.slice(12, item.length),
+          content: item,
+          time:
+            parseInt(mill) + parseInt(sec) * 1000 + parseInt(min) * 60 * 1000,
         };
       });
+      console.log(arr);
+      return arr;
     },
   },
   methods: {

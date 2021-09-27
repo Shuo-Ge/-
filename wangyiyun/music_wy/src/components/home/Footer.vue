@@ -77,6 +77,9 @@ export default {
   },
   mounted() {
     console.log(this.$refs.audio);
+    // this.$store.dispatch("MusicLyric", {
+    //   id: this.playlist[this.playCurrentIndex].id,
+    // });
   },
   methods: {
     play() {
@@ -90,9 +93,7 @@ export default {
     },
     async getComment() {
       const { data: res } = await this.$http.get(
-        `/comment/music?id=${
-          this.$store.state.playlist[this.$store.state.playCurrentIndex].id
-        }`
+        `/comment/music?id=${this.playlist[this.playCurrentIndex].id}`
       );
       this.comment = res;
       console.log(this.comment);
